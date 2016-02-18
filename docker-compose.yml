@@ -8,11 +8,3 @@ services:
     ports:
         - 80:8080
     env_file: local.env
-
-  # Custom services required for development
-  mongo:
-    image: mongo:3.0.8
-    container_name: mongodb.auth.nildev
-    ports:
-      - 27017:27017
-    env_file: local.env

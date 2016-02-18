@@ -26,4 +26,3 @@ _testmain.go
 *.prof
 .idea
 *.env
-gen_init.go
