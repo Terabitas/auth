@@ -7,12 +7,12 @@ import (
 	"os"
 	"testing"
 
-	"github.com/nildev/auth/Godeps/_workspace/src/golang.org/x/oauth2/github"
+	"golang.org/x/oauth2/github"
 
-	"github.com/nildev/auth/Godeps/_workspace/src/github.com/dgrijalva/jwt-go"
-	"github.com/nildev/auth/Godeps/_workspace/src/github.com/jarcoal/httpmock"
-	. "github.com/nildev/auth/Godeps/_workspace/src/gopkg.in/check.v1"
+	"github.com/dgrijalva/jwt-go"
+	"github.com/jarcoal/httpmock"
 	"github.com/nildev/auth/oauth"
+	. "gopkg.in/check.v1"
 )
 
 type AuthIntegrationSuite struct{}

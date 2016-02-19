@@ -1,6 +1,6 @@
 package auth // import "github.com/nildev/auth"
 import (
-	log "github.com/nildev/auth/Godeps/_workspace/src/github.com/Sirupsen/logrus"
+	log "github.com/Sirupsen/logrus"
 	"github.com/nildev/auth/domain"
 	"github.com/nildev/auth/oauth"
 )

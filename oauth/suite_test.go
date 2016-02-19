@@ -3,7 +3,7 @@ package oauth
 import (
 	"testing"
 
-	. "github.com/nildev/auth/Godeps/_workspace/src/gopkg.in/check.v1"
+	. "gopkg.in/check.v1"
 )
 
 // Run all test suites

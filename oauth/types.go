@@ -1,9 +1,9 @@
 package oauth
 
 import (
-	"github.com/nildev/auth/Godeps/_workspace/src/github.com/google/go-github/github"
-	"github.com/nildev/auth/Godeps/_workspace/src/github.com/juju/errors"
-	"github.com/nildev/auth/Godeps/_workspace/src/golang.org/x/oauth2"
+	"github.com/google/go-github/github"
+	"github.com/juju/errors"
+	"golang.org/x/oauth2"
 )
 
 const (

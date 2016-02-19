@@ -5,7 +5,7 @@ import (
 
 	"os"
 
-	"github.com/nildev/auth/Godeps/_workspace/src/github.com/dgrijalva/jwt-go"
+	"github.com/dgrijalva/jwt-go"
 )
 
 type (

@@ -3,11 +3,11 @@ package oauth
 import (
 	"os"
 
-	log "github.com/nildev/auth/Godeps/_workspace/src/github.com/Sirupsen/logrus"
-	"github.com/nildev/auth/Godeps/_workspace/src/github.com/google/go-github/github"
-	"github.com/nildev/auth/Godeps/_workspace/src/github.com/juju/errors"
-	"github.com/nildev/auth/Godeps/_workspace/src/golang.org/x/oauth2"
-	oauthGithub "github.com/nildev/auth/Godeps/_workspace/src/golang.org/x/oauth2/github"
+	log "github.com/Sirupsen/logrus"
+	"github.com/google/go-github/github"
+	"github.com/juju/errors"
+	"golang.org/x/oauth2"
+	oauthGithub "golang.org/x/oauth2/github"
 )
 
 func makeGitHubProvider(clientID, clientSecret string, token *oauth2.Token) *gitHubReader {
