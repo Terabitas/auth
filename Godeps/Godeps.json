@@ -48,6 +48,18 @@
 			"Rev": "7f88271ea9913b72aca44fa7fc8af919eacc17ce"
 		},
 		{
+			"ImportPath": "golang.org/x/net/http2",
+			"Rev": "7f88271ea9913b72aca44fa7fc8af919eacc17ce"
+		},
+		{
+			"ImportPath": "golang.org/x/net/internal/timeseries",
+			"Rev": "7f88271ea9913b72aca44fa7fc8af919eacc17ce"
+		},
+		{
+			"ImportPath": "golang.org/x/net/trace",
+			"Rev": "7f88271ea9913b72aca44fa7fc8af919eacc17ce"
+		},
+		{
 			"ImportPath": "golang.org/x/oauth2",
 			"Rev": "8a57ed94ffd43444c0879fe75701732a38afc985"
 		},
@@ -56,12 +68,12 @@
 			"Rev": "6a436539be38c296a8075a871cc536686b458371"
 		},
 		{
-			"ImportPath": "google.golang.org/cloud/compute/metadata",
+			"ImportPath": "google.golang.org/cloud",
 			"Rev": "d567b4f285019812c6946493e147d2e802c1de67"
 		},
 		{
-			"ImportPath": "google.golang.org/cloud/internal",
-			"Rev": "d567b4f285019812c6946493e147d2e802c1de67"
+			"ImportPath": "google.golang.org/grpc",
+			"Rev": "933601d8cd6418a8a891bd9075a7161b0a67badb"
 		},
 		{
 			"ImportPath": "gopkg.in/check.v1",
