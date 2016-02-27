@@ -16,6 +16,14 @@
 			"Rev": "5ca80149b9d3f8b863af0e2bb6742e608603bd99"
 		},
 		{
+			"ImportPath": "github.com/getsentry/raven-go",
+			"Rev": "1cc47a9463b90f246a0503d4c2e9a55c9459ced3"
+		},
+		{
+			"ImportPath": "github.com/golang/protobuf/proto",
+			"Rev": "b982704f8bb716bb608144408cff30e15fbde841"
+		},
+		{
 			"ImportPath": "github.com/google/go-github/github",
 			"Rev": "39d75606a4cbec14d6f9f9d4e295dad4e3711682"
 		},
@@ -32,12 +40,28 @@
 			"Rev": "b152fd7394724db99a5a4222145d6e4c20e5adff"
 		},
 		{
+			"ImportPath": "github.com/tobi/airbrake-go",
+			"Rev": "a3cdd910a3ffef88a20fbecc10363a520ad61a0a"
+		},
+		{
 			"ImportPath": "golang.org/x/net/context",
 			"Rev": "7f88271ea9913b72aca44fa7fc8af919eacc17ce"
 		},
 		{
 			"ImportPath": "golang.org/x/oauth2",
 			"Rev": "8a57ed94ffd43444c0879fe75701732a38afc985"
+		},
+		{
+			"ImportPath": "google.golang.org/appengine",
+			"Rev": "6a436539be38c296a8075a871cc536686b458371"
+		},
+		{
+			"ImportPath": "google.golang.org/cloud/compute/metadata",
+			"Rev": "d567b4f285019812c6946493e147d2e802c1de67"
+		},
+		{
+			"ImportPath": "google.golang.org/cloud/internal",
+			"Rev": "d567b4f285019812c6946493e147d2e802c1de67"
 		},
 		{
 			"ImportPath": "gopkg.in/check.v1",
