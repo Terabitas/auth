@@ -61,11 +61,22 @@ func (gr *gitHubReader) Token(authCode string) (*oauth2.Token, error) {
 	client := github.NewClient(tc)
 	gr.user, _, err = client.Users.Get("")
 
+	gr.emails, _, err = client.Users.ListEmails(nil)
+	if err != nil {
+		log.WithField("authCode", authCode).Errorf("%s", err)
+		return nil, errors.Trace(err)
+	}
+
+	if len(gr.emails) == 0 && gr.user.Email == nil{
+		return nil, errors.Errorf("Could not access user email!scope ?")
+	}
+
 	if err != nil {
 		log.WithField("authCode", authCode).Errorf("%s", err)
 		return nil, errors.Trace(err)
 	}
 	log.WithField("authCode", authCode).WithField("user", gr.user.Email).Debugf("[%s]", gr.user.String())
+	log.WithField("authCode", authCode).WithField("emails", gr.user.Email).Debugf("[%+v]",gr.emails)
 
 	return gr.token, nil
 }
@@ -74,16 +85,30 @@ func (gr *gitHubReader) Token(authCode string) (*oauth2.Token, error) {
 func (gr *gitHubReader) Email() (*string, error) {
 
 	if gr.token == nil {
-		return nil, errors.Trace(errors.Errorf("Use Token() first to exchange authCode for valid token"))
+		return nil, errors.Errorf("Use Token() first to exchange authCode for valid token")
 	}
 
-	return gr.user.Email, nil
+	if gr.user.Email != nil {
+		return gr.user.Email, nil
+	}
+
+	for _, eml := range gr.emails {
+		if eml.Verified == nil && eml.Primary == nil {
+			continue
+		}
+
+		if *eml.Verified && *eml.Primary && eml.Email != nil {
+			return eml.Email, nil
+		}
+	}
+
+	return nil, errors.Errorf("No email available!")
 }
 
 // Username reader
 func (gr *gitHubReader) Username() (*string, error) {
 	if gr.token == nil {
-		return nil, errors.Trace(errors.Errorf("Use Token() first to exchange authCode for valid token"))
+		return nil, errors.Errorf("Use Token() first to exchange authCode for valid token")
 	}
 
 	return gr.user.Login, nil
@@ -92,7 +117,7 @@ func (gr *gitHubReader) Username() (*string, error) {
 // Avatar reader
 func (gr *gitHubReader) Avatar() (*string, error) {
 	if gr.token == nil {
-		return nil, errors.Trace(errors.Errorf("Use Token() first to exchange authCode for valid token"))
+		return nil, errors.Errorf("Use Token() first to exchange authCode for valid token")
 	}
 
 	return gr.user.AvatarURL, nil
@@ -101,7 +126,7 @@ func (gr *gitHubReader) Avatar() (*string, error) {
 // Name reader
 func (gr *gitHubReader) Name() (*string, error) {
 	if gr.token == nil {
-		return nil, errors.Trace(errors.Errorf("Use Token() first to exchange authCode for valid token"))
+		return nil, errors.Errorf("Use Token() first to exchange authCode for valid token")
 	}
 
 	return gr.user.Name, nil
@@ -110,7 +135,7 @@ func (gr *gitHubReader) Name() (*string, error) {
 // Data reader
 func (gr *gitHubReader) Data() (interface{}, error) {
 	if gr.token == nil {
-		return nil, errors.Trace(errors.Errorf("Use Token() first to exchange authCode for valid token"))
+		return nil, errors.Errorf("Use Token() first to exchange authCode for valid token")
 	}
 
 	return gr.user, nil

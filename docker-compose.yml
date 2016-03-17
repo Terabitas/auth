@@ -3,7 +3,7 @@ version: '2'
 # API container
 services:
   auth:
-    image: nildev/auth:latest
+    image: eu.gcr.io/nildev-1157/nildev/auth:v0.1.0
     container_name: auth.nildev
     ports:
         - 8081:8080
