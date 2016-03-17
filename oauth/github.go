@@ -38,7 +38,7 @@ func (gr *gitHubReader) Token(authCode string) (*oauth2.Token, error) {
 	conf := &oauth2.Config{
 		ClientID:     gr.clientID,
 		ClientSecret: gr.clientSecret,
-		Scopes:       []string{},
+		Scopes:       []string{"user:email"},
 		Endpoint:     oauthGithub.Endpoint,
 	}
 
