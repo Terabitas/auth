@@ -21,6 +21,7 @@ var _ = Suite(&AuthIntegrationSuite{})
 
 func TestMain(m *testing.M) {
 	os.Setenv("ND_SIGN_KEY", "signing-key")
+	os.Setenv("ND_GITHUB_SCOPE", "user:email")
 
 	code := m.Run()
 	os.Exit(code)

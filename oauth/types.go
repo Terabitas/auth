@@ -27,6 +27,7 @@ type (
 		clientSecret string
 		token        *oauth2.Token
 		user         *github.User
+		scope        []string
 	}
 )
 

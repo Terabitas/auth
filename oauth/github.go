@@ -8,6 +8,7 @@ import (
 	"github.com/juju/errors"
 	"golang.org/x/oauth2"
 	oauthGithub "golang.org/x/oauth2/github"
+	"strings"
 )
 
 func makeGitHubProvider(clientID, clientSecret string, token *oauth2.Token) *gitHubReader {
@@ -21,11 +22,13 @@ func makeGitHubProvider(clientID, clientSecret string, token *oauth2.Token) *git
 func makeGitHubProviderUsingEnv(token *oauth2.Token) *gitHubReader {
 	clientID := os.Getenv("ND_GITHUB_CLIENT_ID")
 	clientSecret := os.Getenv("ND_GITHUB_SECRET")
+	requiredScope := os.Getenv("ND_GITHUB_SCOPE")
 
 	return &gitHubReader{
 		clientID:     clientID,
 		clientSecret: clientSecret,
 		token:        token,
+		scope: 	      strings.Split(requiredScope, ","),
 	}
 }
 
@@ -38,7 +41,7 @@ func (gr *gitHubReader) Token(authCode string) (*oauth2.Token, error) {
 	conf := &oauth2.Config{
 		ClientID:     gr.clientID,
 		ClientSecret: gr.clientSecret,
-		Scopes:       []string{"user:email"},
+		Scopes:       gr.scope,
 		Endpoint:     oauthGithub.Endpoint,
 	}
 
