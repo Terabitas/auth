@@ -19,9 +19,17 @@ nildev build github.com/nildev/auth
 Create `local.env` file in root dir with content:
 ```
 ND_SIGN_KEY=__YOUR_VAL__
-ND_ENV=dev
+ND_ENV=__YOUR_VAL__
+ND_SIGN_KEY=__YOUR_VAL__
+
+ND_GITHUB_SCOPE=__YOUR_VAL__
 ND_GITHUB_CLIENT_ID=__YOUR_VAL__
-ND_GITHUB_SECRETE=__YOUR_VAL__
+ND_GITHUB_SECRET=__YOUR_VAL__
+
+ND_DO_CLIENT_ID=__YOUR_VAL__ 
+ND_DO_SECRET=__YOUR_VAL__
+ND_DO_SCOPE=__YOUR_VAL__
+ND_DO_REDIRECT_URL=__YOUR_VAL__
 ```
 
 Run containers:
