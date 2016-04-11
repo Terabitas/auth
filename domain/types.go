@@ -21,7 +21,7 @@ func MakeSession(email string) (*Session, error) {
 	signKey := os.Getenv("ND_SIGN_KEY")
 	token := jwt.New(jwt.SigningMethodHS256)
 	token.Claims["email"] = email
-	token.Claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
+	token.Claims["exp"] = time.Now().Add(time.Hour * 168).Unix()
 	tokenString, err := token.SignedString([]byte(signKey))
 
 	if err != nil {

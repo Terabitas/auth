@@ -4,10 +4,12 @@ import (
 	"github.com/google/go-github/github"
 	"github.com/juju/errors"
 	"golang.org/x/oauth2"
+	"github.com/digitalocean/godo"
 )
 
 const (
-	PROVIDER_GITHUB = "github"
+	PROVIDER_GITHUB       = "github"
+	PROVIDER_DIGITALOCEAN = "digitalocean"
 )
 
 type (
@@ -30,6 +32,15 @@ type (
 		emails       []github.UserEmail
 		scope        []string
 	}
+
+	digitalOceanReader struct {
+		clientID     string
+		clientSecret string
+		redirectURL  string
+		token        *oauth2.Token
+		account      *godo.Account
+		scope        []string
+	}
 )
 
 // MakeReader creates reader based on requested provider
@@ -37,7 +48,9 @@ func MakeReader(provider string) (AccountReader, error) {
 	switch provider {
 	case PROVIDER_GITHUB:
 		return makeGitHubProviderUsingEnv(nil), nil
+	case PROVIDER_DIGITALOCEAN:
+		return makeDigitalOceanProviderUsingEnv(nil), nil
 	}
 
-	return nil, errors.Trace(errors.Errorf("Provider [%s] is not supported", provider))
+	return nil, errors.Errorf("Provider [%s] is not supported", provider)
 }

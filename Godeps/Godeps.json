@@ -7,8 +7,8 @@
 	"Deps": [
 		{
 			"ImportPath": "github.com/Sirupsen/logrus",
-			"Comment": "v0.6.2-10-g51fe59a",
-			"Rev": "51fe59aca108dc5680109e7b2051cbdcfa5a253c"
+			"Comment": "v0.10.0",
+			"Rev": "4b6ea7319e214d98c938f12692336f7ca9348d6b"
 		},
 		{
 			"ImportPath": "github.com/dgrijalva/jwt-go",
@@ -16,12 +16,9 @@
 			"Rev": "5ca80149b9d3f8b863af0e2bb6742e608603bd99"
 		},
 		{
-			"ImportPath": "github.com/getsentry/raven-go",
-			"Rev": "1cc47a9463b90f246a0503d4c2e9a55c9459ced3"
-		},
-		{
-			"ImportPath": "github.com/golang/glog",
-			"Rev": "44145f04b68cf362d9c4df2182967c2275eaefed"
+			"ImportPath": "github.com/digitalocean/godo",
+			"Comment": "v0.9.0-32-g859ab8f",
+			"Rev": "859ab8f9253710399c0bc0f481a236f8285d5d4f"
 		},
 		{
 			"ImportPath": "github.com/golang/protobuf/proto",
@@ -44,60 +41,32 @@
 			"Rev": "b152fd7394724db99a5a4222145d6e4c20e5adff"
 		},
 		{
-			"ImportPath": "github.com/tobi/airbrake-go",
-			"Rev": "a3cdd910a3ffef88a20fbecc10363a520ad61a0a"
-		},
-		{
-			"ImportPath": "golang.org/x/crypto/ssh/terminal",
-			"Rev": "c84e1f8e3a7e322d497cd16c0e8a13c7e127baf3"
+			"ImportPath": "github.com/tent/http-link-go",
+			"Rev": "ac974c61c2f990f4115b119354b5e0b47550e888"
 		},
 		{
 			"ImportPath": "golang.org/x/net/context",
-			"Rev": "7f88271ea9913b72aca44fa7fc8af919eacc17ce"
+			"Rev": "2e9cee70ee697e0a2ef894b560dda50dec7dff58"
 		},
 		{
 			"ImportPath": "golang.org/x/net/http2",
-			"Rev": "7f88271ea9913b72aca44fa7fc8af919eacc17ce"
+			"Rev": "2e9cee70ee697e0a2ef894b560dda50dec7dff58"
 		},
 		{
 			"ImportPath": "golang.org/x/net/internal/timeseries",
-			"Rev": "7f88271ea9913b72aca44fa7fc8af919eacc17ce"
+			"Rev": "2e9cee70ee697e0a2ef894b560dda50dec7dff58"
 		},
 		{
 			"ImportPath": "golang.org/x/net/trace",
-			"Rev": "7f88271ea9913b72aca44fa7fc8af919eacc17ce"
+			"Rev": "2e9cee70ee697e0a2ef894b560dda50dec7dff58"
 		},
 		{
 			"ImportPath": "golang.org/x/oauth2",
 			"Rev": "8a57ed94ffd43444c0879fe75701732a38afc985"
 		},
 		{
-			"ImportPath": "google.golang.org/api/bigquery/v2",
-			"Rev": "ad6c2cd766aa31d72fe3fce08189e0ba6e5002b9"
-		},
-		{
-			"ImportPath": "google.golang.org/api/container/v1",
-			"Rev": "ad6c2cd766aa31d72fe3fce08189e0ba6e5002b9"
-		},
-		{
-			"ImportPath": "google.golang.org/api/gensupport",
-			"Rev": "ad6c2cd766aa31d72fe3fce08189e0ba6e5002b9"
-		},
-		{
-			"ImportPath": "google.golang.org/api/googleapi",
-			"Rev": "ad6c2cd766aa31d72fe3fce08189e0ba6e5002b9"
-		},
-		{
-			"ImportPath": "google.golang.org/api/logging/v1beta3",
-			"Rev": "ad6c2cd766aa31d72fe3fce08189e0ba6e5002b9"
-		},
-		{
-			"ImportPath": "google.golang.org/api/pubsub/v1",
-			"Rev": "ad6c2cd766aa31d72fe3fce08189e0ba6e5002b9"
-		},
-		{
-			"ImportPath": "google.golang.org/api/storage/v1",
-			"Rev": "ad6c2cd766aa31d72fe3fce08189e0ba6e5002b9"
+			"ImportPath": "golang.org/x/sys/unix",
+			"Rev": "20457ee8ea8546920d3f4e19e405da45250dc5a5"
 		},
 		{
 			"ImportPath": "google.golang.org/appengine",
@@ -112,8 +81,18 @@
 			"Rev": "933601d8cd6418a8a891bd9075a7161b0a67badb"
 		},
 		{
+			"ImportPath": "gopkg.in/airbrake/gobrake.v2",
+			"Comment": "v2.0.6",
+			"Rev": "31c8ff1fb8b79a6947e6565e9a6df535f98a6b94"
+		},
+		{
 			"ImportPath": "gopkg.in/check.v1",
 			"Rev": "4f90aeace3a26ad7021961c297b22c42160c7b25"
+		},
+		{
+			"ImportPath": "gopkg.in/gemnasium/logrus-airbrake-hook.v2",
+			"Comment": "v2.0.0",
+			"Rev": "31e6fd4bd5a98d8ee7673d24bc54ec73c31810dd"
 		}
 	]
 }

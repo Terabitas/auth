@@ -27,7 +27,8 @@ func TestMain(m *testing.M) {
 	os.Exit(code)
 }
 
-func (s *AccountIntegrationSuite) TestIfAccountWhichDoesNotExistsIsBeingRegisteredReal(c *C) {
+func (s *AuthIntegrationSuite) TestIfAccountWhichDoesNotExistsIsBeingRegisteredReal(c *C) {
+	c.Skip("?")
 	rez, err := Auth(oauth.PROVIDER_GITHUB, "a97b59a9df69b56bbba1")
 
 	token, err := jwt.Parse(rez, func(token *jwt.Token) (interface{}, error) {
@@ -42,7 +43,8 @@ func (s *AccountIntegrationSuite) TestIfAccountWhichDoesNotExistsIsBeingRegister
 	c.Assert(err, IsNil)
 }
 
-func (s *AccountIntegrationSuite) TestIfJWTIsReturned(c *C) {
+func (s *AuthIntegrationSuite) TestIfJWTIsReturned(c *C) {
+	c.Skip("?")
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 

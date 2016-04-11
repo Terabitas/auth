@@ -406,6 +406,9 @@ func (t *Transport) NewClientConn(c net.Conn) (*ClientConn, error) {
 	// henc in response to SETTINGS frames?
 	cc.henc = hpack.NewEncoder(&cc.hbuf)
 
+	type connectionStater interface {
+		ConnectionState() tls.ConnectionState
+	}
 	if cs, ok := c.(connectionStater); ok {
 		state := cs.ConnectionState()
 		cc.tlsState = &state
@@ -562,27 +565,7 @@ func (cc *ClientConn) responseHeaderTimeout() time.Duration {
 	return 0
 }
 
-// checkConnHeaders checks whether req has any invalid connection-level headers.
-// per RFC 7540 section 8.1.2.2: Connection-Specific Header Fields.
-// Certain headers are special-cased as okay but not transmitted later.
-func checkConnHeaders(req *http.Request) error {
-	if v := req.Header.Get("Upgrade"); v != "" {
-		return errors.New("http2: invalid Upgrade request header")
-	}
-	if v := req.Header.Get("Transfer-Encoding"); (v != "" && v != "chunked") || len(req.Header["Transfer-Encoding"]) > 1 {
-		return errors.New("http2: invalid Transfer-Encoding request header")
-	}
-	if v := req.Header.Get("Connection"); (v != "" && v != "close" && v != "keep-alive") || len(req.Header["Connection"]) > 1 {
-		return errors.New("http2: invalid Connection request header")
-	}
-	return nil
-}
-
 func (cc *ClientConn) RoundTrip(req *http.Request) (*http.Response, error) {
-	if err := checkConnHeaders(req); err != nil {
-		return nil, err
-	}
-
 	trailers, err := commaSeparatedTrailers(req)
 	if err != nil {
 		return nil, err
@@ -934,24 +917,13 @@ func (cc *ClientConn) encodeHeaders(req *http.Request, addGzipHeader bool, trail
 	var didUA bool
 	for k, vv := range req.Header {
 		lowKey := strings.ToLower(k)
-		switch lowKey {
-		case "host", "content-length":
-			// Host is :authority, already sent.
-			// Content-Length is automatic, set below.
+		if lowKey == "host" || lowKey == "content-length" {
 			continue
-		case "connection", "proxy-connection", "transfer-encoding", "upgrade":
-			// Per 8.1.2.2 Connection-Specific Header
-			// Fields, don't send connection-specific
-			// fields. We deal with these earlier in
-			// RoundTrip, deciding whether they're
-			// error-worthy, but we don't want to mutate
-			// the user's *Request so at this point, just
-			// skip over them at this point.
-			continue
-		case "user-agent":
+		}
+		if lowKey == "user-agent" {
 			// Match Go's http1 behavior: at most one
-			// User-Agent. If set to nil or empty string,
-			// then omit it. Otherwise if not mentioned,
+			// User-Agent.  If set to nil or empty string,
+			// then omit it.  Otherwise if not mentioned,
 			// include the default (below).
 			didUA = true
 			if len(vv) < 1 {
@@ -1061,9 +1033,8 @@ func (cc *ClientConn) streamByID(id uint32, andRemove bool) *clientStream {
 
 // clientConnReadLoop is the state owned by the clientConn's frame-reading readLoop.
 type clientConnReadLoop struct {
-	cc            *ClientConn
-	activeRes     map[uint32]*clientStream // keyed by streamID
-	closeWhenIdle bool
+	cc        *ClientConn
+	activeRes map[uint32]*clientStream // keyed by streamID
 
 	hdec *hpack.Decoder
 
@@ -1123,7 +1094,7 @@ func (rl *clientConnReadLoop) cleanup() {
 
 func (rl *clientConnReadLoop) run() error {
 	cc := rl.cc
-	rl.closeWhenIdle = cc.t.disableKeepAlives()
+	closeWhenIdle := cc.t.disableKeepAlives()
 	gotReply := false // ever saw a reply
 	for {
 		f, err := cc.fr.ReadFrame()
@@ -1172,7 +1143,7 @@ func (rl *clientConnReadLoop) run() error {
 		if err != nil {
 			return err
 		}
-		if rl.closeWhenIdle && gotReply && maybeIdle && len(rl.activeRes) == 0 {
+		if closeWhenIdle && gotReply && maybeIdle && len(rl.activeRes) == 0 {
 			cc.closeIfIdle()
 		}
 	}
@@ -1293,10 +1264,10 @@ func (rl *clientConnReadLoop) processHeaderBlockFragment(frag []byte, streamID u
 			res.ContentLength = -1
 			res.Body = &gzipReader{body: res.Body}
 		}
-		rl.activeRes[cs.ID] = cs
 	}
 
 	cs.resTrailer = &res.Trailer
+	rl.activeRes[cs.ID] = cs
 	cs.resc <- resAndError{res: res}
 	rl.nextRes = nil // unused now; will be reset next HEADERS frame
 	return nil
@@ -1439,9 +1410,6 @@ func (rl *clientConnReadLoop) endStream(cs *clientStream) {
 	}
 	cs.bufPipe.closeWithErrorAndCode(err, code)
 	delete(rl.activeRes, cs.ID)
-	if cs.req.Close || cs.req.Header.Get("Connection") == "close" {
-		rl.closeWhenIdle = true
-	}
 }
 
 func (cs *clientStream) copyTrailers() {
